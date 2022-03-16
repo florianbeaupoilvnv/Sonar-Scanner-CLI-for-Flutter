@@ -30,7 +30,7 @@ jobs:
           DOCKER_PROJECT: ${{secrets.DOCKER_PROJECT}}
 
         run: |
-          echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USER --password-stdin
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Format repo name
         run: echo 'REPO_NAME=$(echo ${GITHUB_REPOSITORY##*/} | tr "[:upper:]" "[:lower:]")' >> $GITHUB_ENV
