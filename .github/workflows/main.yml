@@ -28,6 +28,7 @@ jobs:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
           DOCKER_PROJECT: ${{secrets.DOCKER_PROJECT}}
+          RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
 
         run: |
           echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USER --password-stdin
@@ -40,4 +41,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Docker push
-        run: docker push ${{secrets.DOCKER_USER}}/${{ env.DOCKER_PROJECT }}:${GITHUB_REF##*/}
+        run: docker push ${{secrets.DOCKER_USER}}/${{ env.DOCKER_PROJECT }}:${{ env.RELEASE_VERSION }}
